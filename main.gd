@@ -1,6 +1,9 @@
 extends Node2D
 
-@export var connection_panel : PanelContainer
+const dummy_network_adapter = preload("res://addons/godot-rollback-netcode/DummyNetworkAdaptor.gd")
+
+@export var main_menu : HBoxContainer
+@export var connection_panel : Window
 @export var host_field : LineEdit
 @export var port_field : LineEdit
 @export var message_label : Label
@@ -8,6 +11,9 @@ extends Node2D
 @export var client_button : Button
 @export var reset_button : Button
 @export var sync_lost_label : Label
+
+@export var online_button : Button
+@export var local_button : Button
 
 const LOG_FILE_DIRECTORY = "user://detailed_logs"
 var logging_enabled := true
@@ -17,6 +23,8 @@ func _ready():
 	server_button.pressed.connect(server_pressed)
 	client_button.pressed.connect(client_pressed)
 	reset_button.pressed.connect(reset_pressed)
+	online_button.pressed.connect(online_pressed)
+	local_button.pressed.connect(local_pressed)
 	
 	multiplayer.peer_connected.connect(on_peer_connected)
 	multiplayer.peer_disconnected.connect(on_peer_disconnected)
@@ -35,6 +43,7 @@ func server_pressed():
 	peer.create_server(port_field.text.to_int(), 1)
 	multiplayer.multiplayer_peer = peer
 	connection_panel.visible = false
+	main_menu.visible = false
 	message_label.text = "Listening..."
 	pass
 
@@ -43,6 +52,7 @@ func client_pressed():
 	peer.create_client(host_field.text, port_field.text.to_int())
 	multiplayer.multiplayer_peer = peer
 	connection_panel.visible = false
+	main_menu.visible = false
 	message_label.text = "Connecting..."
 	pass
 
@@ -54,6 +64,21 @@ func reset_pressed():
 		peer.close()
 	get_tree().reload_current_scene()
 	pass
+
+func online_pressed():
+	connection_panel.popup_centered()
+	SyncManager.reset_network_adaptor()
+	
+	pass
+
+func local_pressed():
+	main_menu.visible = false
+	$ClientPlayer.input_prefix = "player2_"
+	SyncManager.network_adaptor = dummy_network_adapter.new()
+	SyncManager.start()
+	pass
+
+
 
 func on_peer_connected(peer_id : int):
 	message_label.text = "Connected!"
@@ -131,5 +156,6 @@ func sync_error(msg: String):
 
 func setup_match_for_replay(my_peer_id : int, peer_ids : Array, match_info : Dictionary):
 	connection_panel.visible = false
+	main_menu.visible = false
 	reset_button.visible = false
 	pass

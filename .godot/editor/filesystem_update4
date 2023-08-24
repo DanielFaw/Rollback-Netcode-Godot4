@@ -11,3 +11,4 @@ res://addons/godot-rollback-netcode/log_inspector/FrameDataGrid.tscn
 res://addons/godot-rollback-netcode/log_inspector/FrameViewer.tscn
 res://addons/godot-rollback-netcode/log_inspector/FrameViewerTimeOffsetSetting.tscn
 res://addons/godot-rollback-netcode/log_inspector/LogInspector.tscn
+res://main.gd

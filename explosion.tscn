@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://i651jpg1ei03"]
+
+[ext_resource type="Texture2D" uid="uid://cucle238jihmv" path="res://assets/explosion.png" id="1_2hlux"]
+[ext_resource type="Script" path="res://explosion.gd" id="1_2x8nj"]
+[ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkTimer.gd" id="2_ujfsn"]
+
+[node name="Explosion" type="Node2D" node_paths=PackedStringArray("despawn_timer")]
+script = ExtResource("1_2x8nj")
+despawn_timer = NodePath("DespawnTimer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("1_2hlux")
+hframes = 9
+
+[node name="DespawnTimer" type="Node" parent="."]
+script = ExtResource("2_ujfsn")
+wait_ticks = 15

@@ -7,3 +7,8 @@ res://player.gd
 res://player.tscn
 res://addons/godot-rollback-netcode/SyncManager.gd
 res://custom_message_serializer.gd
+res://addons/godot-rollback-netcode/NetworkTimer.gd
+res://bomb.tscn
+res://bomb.gd
+res://explosion.tscn
+res://explosion.gd

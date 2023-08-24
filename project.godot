@@ -89,13 +89,14 @@ player2_bomb={
 
 [network]
 
+rollback/max_buffer_size=10
+rollback/interpolation=true
 rollback/classes/message_serializer="res://custom_message_serializer.gd"
-rollback/debug/rollback_ticks=4
-rollback/debug/random_rollback_ticks=10
 rollback/log_inspector/replay_match_scene_path="res://main.tscn"
 
 [physics]
 
+common/physics_ticks_per_second=30
 common/enable_pause_aware_picking=true
 
 [rendering]

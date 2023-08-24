@@ -28,8 +28,8 @@ func _predict_remote_input(previous_input: Dictionary, ticks_since_real_input: i
 func _network_process(input: Dictionary) -> void:
 	var input_vector = input.get("input_vector", Vector2.ZERO)
 	if input_vector != Vector2.ZERO:
-		if speed < 8.0:
-			speed += 0.2
+		if speed < 16.0:
+			speed += 1.0
 		position += input_vector * speed
 	else:
 		speed = 0.0
@@ -62,3 +62,7 @@ func _save_state() -> Dictionary:
 func _load_state(state: Dictionary) -> void:
 	position = state["position"]
 	speed = state["speed"]
+
+func _interpolate_state(old_state: Dictionary, new_state: Dictionary, weight: float):
+	position = lerp(old_state.position, new_state.position, weight)
+	pass

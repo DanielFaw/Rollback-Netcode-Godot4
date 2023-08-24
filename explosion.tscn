@@ -15,4 +15,4 @@ hframes = 9
 
 [node name="DespawnTimer" type="Node" parent="."]
 script = ExtResource("2_ujfsn")
-wait_ticks = 15
+wait_ticks = 7

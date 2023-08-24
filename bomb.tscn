@@ -15,4 +15,4 @@ hframes = 10
 
 [node name="NetworkTimer" type="Node" parent="."]
 script = ExtResource("3_pncjo")
-wait_ticks = 60
+wait_ticks = 30

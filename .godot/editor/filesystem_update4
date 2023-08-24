@@ -6,3 +6,4 @@ res://addons/godot-rollback-netcode/SyncDebugger.gd
 res://player.gd
 res://player.tscn
 res://addons/godot-rollback-netcode/SyncManager.gd
+res://custom_message_serializer.gd

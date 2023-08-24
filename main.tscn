@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmxlovr2584tb"]
+[gd_scene load_steps=4 format=3 uid="uid://bmxlovr2584tb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_lri6u"]
 [ext_resource type="PackedScene" uid="uid://b6mfcw4m748ow" path="res://player.tscn" id="2_p8hca"]
+[ext_resource type="Script" path="res://addons/godot-rollback-netcode/NetworkRandomNumberGenerator.gd" id="3_kd5fg"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("main_menu", "connection_panel", "host_field", "port_field", "message_label", "server_button", "client_button", "reset_button", "sync_lost_label", "online_button", "local_button")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("main_menu", "connection_panel", "host_field", "port_field", "message_label", "server_button", "client_button", "reset_button", "sync_lost_label", "online_button", "local_button", "johnny")]
 script = ExtResource("1_lri6u")
 main_menu = NodePath("CanvasLayer/MainMenu")
 connection_panel = NodePath("CanvasLayer/ConnectionPanel")
@@ -16,6 +17,7 @@ reset_button = NodePath("CanvasLayer/ResetButton")
 sync_lost_label = NodePath("CanvasLayer/SyncLostLabel")
 online_button = NodePath("CanvasLayer/MainMenu/OnlineButton")
 local_button = NodePath("CanvasLayer/MainMenu/LocalButton")
+johnny = NodePath("Johnny")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -121,3 +123,6 @@ position = Vector2(223, 325)
 
 [node name="ClientPlayer" parent="." instance=ExtResource("2_p8hca")]
 position = Vector2(985, 330)
+
+[node name="Johnny" type="Node" parent="."]
+script = ExtResource("3_kd5fg")

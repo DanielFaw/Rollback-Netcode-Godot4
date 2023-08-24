@@ -15,6 +15,8 @@ const dummy_network_adapter = preload("res://addons/godot-rollback-netcode/Dummy
 @export var online_button : Button
 @export var local_button : Button
 
+@export var johnny : NetworkRandomNumberGenerator
+
 const LOG_FILE_DIRECTORY = "user://detailed_logs"
 var logging_enabled := true
 
@@ -39,6 +41,7 @@ func _ready():
 
 
 func server_pressed():
+	johnny.randomize()
 	var peer := ENetMultiplayerPeer.new()
 	peer.create_server(port_field.text.to_int(), 1)
 	multiplayer.multiplayer_peer = peer
@@ -93,12 +96,22 @@ func on_peer_connected(peer_id : int):
 	
 	if multiplayer.is_server():
 		message_label.text = "Starting..."
+		setup_match({mother_seed = johnny.get_seed()})
+		setup_match.rpc({mother_seed = johnny.get_seed()})
 		await get_tree().create_timer(2.0).timeout
 		SyncManager.start()
 		pass
 	
 	pass
-	
+
+@rpc("reliable")
+func setup_match(info: Dictionary):
+	johnny.set_seed(info["mother_seed"])
+	$ClientPlayer.rng.set_seed(johnny.randi())
+	$ServerPlayer.rng.set_seed(johnny.randi())
+	pass
+
+
 func on_peer_disconnected(peer_id : int):
 	message_label.text = "Disconnected"
 	SyncManager.remove_peer(peer_id)

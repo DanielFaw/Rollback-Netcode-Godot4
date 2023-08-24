@@ -16,3 +16,4 @@ res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd
 res://bomb.gd
 res://explosion.gd
 res://default_bus_layout.tres
+res://custom_message_serializer.gd

@@ -12,3 +12,6 @@ res://addons/godot-rollback-netcode/log_inspector/FrameViewer.tscn
 res://addons/godot-rollback-netcode/log_inspector/FrameViewerTimeOffsetSetting.tscn
 res://addons/godot-rollback-netcode/log_inspector/LogInspector.tscn
 res://main.gd
+res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd
+res://bomb.gd
+res://explosion.gd

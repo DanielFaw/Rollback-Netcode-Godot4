@@ -73,10 +73,10 @@ func update_network_arrows() -> void:
 				network_arrows_peer1_field.get_selected_id(),
 				network_arrows_peer2_field.get_selected_id(),
 			]
-			data_graph.canvas.update()
+			data_graph.canvas.queue_redraw()
 	else:
 		data_graph.canvas.show_network_arrows = false
-		data_graph.canvas.update()
+		data_graph.canvas.queue_redraw()
 
 func _on_ShowNetworkArrows_toggled(button_pressed: bool) -> void:
 	update_network_arrows()
@@ -88,8 +88,8 @@ func _on_NetworkArrowsPeer2_item_selected(index: int) -> void:
 	update_network_arrows()
 
 func _on_ShowRollbackTicks_pressed() -> void:
-	data_graph.canvas.show_rollback_ticks = show_rollback_ticks_field.pressed
-	data_graph.canvas.update()
+	data_graph.canvas.show_rollback_ticks = show_rollback_ticks_field.button_pressed
+	data_graph.canvas.queue_redraw()
 
 func _on_MaxRollbackTicks_text_changed(new_text: String) -> void:
 	var value = max_rollback_ticks_field.text
@@ -97,4 +97,4 @@ func _on_MaxRollbackTicks_text_changed(new_text: String) -> void:
 		var value_int = value.to_int()
 		if value_int > 0:
 			data_graph.canvas.max_rollback_ticks = value_int
-			data_graph.canvas.update()
+			data_graph.canvas.queue_redraw()

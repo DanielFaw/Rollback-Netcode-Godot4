@@ -455,7 +455,7 @@ func start_logging(log_file_path: String, match_info: Dictionary = {}) -> void:
 	else:
 		_logger.stop()
 	
-	if _logger.start(Callable(network_adaptor.get_unique_id(), log_file_path).bind(match_info)) != OK:
+	if _logger.start(log_file_path, network_adaptor.get_unique_id(), match_info) != OK:
 		stop_logging()
 
 func stop_logging() -> void:

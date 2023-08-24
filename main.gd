@@ -9,6 +9,9 @@ extends Node2D
 @export var reset_button : Button
 @export var sync_lost_label : Label
 
+const LOG_FILE_DIRECTORY = "user://detailed_logs"
+var logging_enabled := true
+
 
 func _ready():
 	server_button.pressed.connect(server_pressed)
@@ -82,10 +85,30 @@ func on_server_disconnected():
 
 func sync_started():
 	message_label.text = "Started!"
+	
+	if logging_enabled && !SyncReplay.active:
+		var dir := DirAccess.open("user://")
+		if !dir.dir_exists(LOG_FILE_DIRECTORY):
+			dir.make_dir(LOG_FILE_DIRECTORY)
+		
+		var datetime = Time.get_datetime_dict_from_system()
+		var log_file_name = "%04d%02d%02d-%02d%02d%02d-peer-%d.log" % [
+			datetime.year,
+			datetime.month,
+			datetime.day,
+			datetime.hour,
+			datetime.minute,
+			datetime.second,
+			multiplayer.get_unique_id()
+		]
+		
+		SyncManager.start_logging(LOG_FILE_DIRECTORY + "/" + log_file_name)
+		
 	pass
 
 func sync_stopped():
-	
+	if logging_enabled:
+		SyncManager.stop_logging()
 	pass
 
 func sync_lost():
@@ -103,4 +126,10 @@ func sync_error(msg: String):
 	if peer:
 		peer.close()
 	SyncManager.clear_peers()
+	pass
+
+
+func setup_match_for_replay(my_peer_id : int, peer_ids : Array, match_info : Dictionary):
+	connection_panel.visible = false
+	reset_button.visible = false
 	pass

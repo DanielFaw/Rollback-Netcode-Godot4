@@ -1,13 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://5ajljma3arnk"]
 
-[ext_resource path="res://addons/godot-rollback-netcode/log_inspector/FrameDataGrid.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://addons/godot-rollback-netcode/log_inspector/FrameDataGrid.gd" id="1"]
 
 [node name="FrameViewerDataGrid" type="Tree"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 hide_root = true
 select_mode = 1
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("1")

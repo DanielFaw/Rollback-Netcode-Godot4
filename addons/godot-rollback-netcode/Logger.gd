@@ -43,8 +43,9 @@ func _init(_sync_manager) -> void:
 func start(log_file_name: String, peer_id: int, match_info: Dictionary = {}) -> int:
 	if not _started:
 		var err: int
-
-		err = FileAccess.open_compressed(log_file_name, FileAccess.WRITE, FileAccess.COMPRESSION_FASTLZ).get_open_error()
+		
+		_log_file = FileAccess.open_compressed(log_file_name, FileAccess.WRITE, FileAccess.COMPRESSION_FASTLZ)
+		err = _log_file.get_open_error()
 		if err != OK:
 			return err
 		
@@ -56,7 +57,7 @@ func start(log_file_name: String, peer_id: int, match_info: Dictionary = {}) -> 
 		_log_file.store_var(header)
 		
 		_started = true
-		_writer_thread.start(Callable(self, "_writer_thread_function"))
+		_writer_thread.start(_writer_thread_function)
 	
 	return OK
 
@@ -81,7 +82,7 @@ func stop() -> void:
 		data.clear()
 		_start_times.clear()
 
-func _writer_thread_function(_userdata) -> void:
+func _writer_thread_function() -> void:
 	while true:
 		_writer_thread_semaphore.wait()
 		

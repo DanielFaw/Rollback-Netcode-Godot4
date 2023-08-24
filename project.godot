@@ -91,7 +91,9 @@ player2_bomb={
 
 rollback/max_buffer_size=10
 rollback/interpolation=true
+rollback/sound_manager/default_sound_bus="Sound"
 rollback/classes/message_serializer="res://custom_message_serializer.gd"
+rollback/debug/random_rollback_ticks=4
 rollback/log_inspector/replay_match_scene_path="res://main.tscn"
 
 [physics]
